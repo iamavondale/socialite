@@ -1,0 +1,255 @@
+body {
+    background: #ECEFF1;
+    margin: 0 auto;
+    font-family: Open Sans, sans-serif;
+}
+
+img{
+    max-width: 100%;
+}
+
+.nav {
+    background: #242f48;
+    padding: 0.5rem;
+    align-items: center;
+    display: flex;
+}
+
+.nav-buttons {
+    margin-right: auto;
+}
+
+.menu-button {
+    background-color: #242f48;
+    border: none;
+    color: white;
+    display: inline;
+}
+
+.container {
+    margin: 0 auto;
+    width: 80%;
+    height: 100%;
+    margin-top: 25px;
+}
+
+.profile {
+    background-color: white;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+
+.post {
+    background-color: white;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 3px;
+    display: flex;
+}
+
+.post-list {
+    font-size: 14px;
+    background-color: white;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border-radius: 3px;
+    margin-bottom: 25px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.center {
+    text-align: center;
+}
+
+h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 18px;
+    display: inline-block;
+}
+
+.center-img {
+    height: 100%;
+    text-align: center;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    display: block;
+}
+
+hr {
+    border-top: 1px solid #ECEFF1;
+}
+
+.profile i {
+    font-size: 24px;
+    color: #242f48;
+    text-align: center;
+}
+
+input[type=text] {
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin: 8px 0;
+    text-indent: 15px;
+    border: 1px solid #ECEFF1;
+    border-radius: 3px;
+  }
+
+.p-post {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #828282;
+}
+
+.post-button {
+    background-color: #00a3f9;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    margin-left: 7px;
+    border-radius: 3px;
+}
+
+.like-button {
+    background-color: #00a3f9;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    border-radius: 3px;
+}
+
+.comment-button {
+    background-color: #00a3f9;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    margin-left: 3px;
+    border-radius: 3px;
+}
+
+.post-img {
+    margin-right: 16px;
+    border-radius: 50%;
+    display: block;
+}
+
+.grid {
+    display: grid;
+    grid-template-areas:
+        "profile"
+        "feed";
+}
+
+.profile {
+    grid-area: profile;
+}
+
+.feed {
+    grid-area: feed;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .logo {
+        width: 50%;
+    }
+
+    .post-img {
+        max-width: 20%;
+        max-height: 20%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .logo {
+        width: 50%;
+    }
+
+    .post-img {
+        max-width: 20%;
+        max-height: 20%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .logo {
+        width: 50%;
+    }
+
+    .post-img {
+        max-width: 20%;
+        max-height: 20%;
+    } 
+
+    .menu-button {
+        padding: 7px 15px;
+    }
+
+    .grid{
+        grid-template-areas: "profile feed";
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .logo {
+        width: 20%;
+    }
+
+    .post {
+        margin-left: 8px;
+    }
+    
+    .post-list {
+        margin-left: 8px;
+    }
+
+    .post-img {
+        max-width: 7%;
+        max-height: 7%;
+    }
+
+    .menu-button {
+        padding: 7px 15px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .logo {
+        width: 15%;
+    }
+
+    .post {
+        margin-left: 8px;
+    }
+    
+    .post-list {
+        margin-left: 8px;
+    }
+
+    .post-img {
+        max-width: 7%;
+        max-height: 7%;
+    }
+
+    .menu-button {
+        padding: 7px 15px;
+    }
+    
+}
