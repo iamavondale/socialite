@@ -3,6 +3,16 @@
 
 <head>
   <meta charset="utf-8">
+
+  <script defer src="/__/firebase/7.5.2/firebase-app.js"></script>
+  <script defer src="/__/firebase/7.5.2/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.5.2/firebase-functions.js"></script>
+  <script defer src="/__/firebase/7.5.2/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.5.2/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="src/css/style.css">
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
@@ -15,10 +25,10 @@
   <div class="nav">
     <img class="logo" src="src/img/logo2.png">
     <div class="nav-buttons">
-      <button class="menu-button"><i class="material-icons">home</i></button>
+      <!-- <button class="menu-button"><i class="material-icons">home</i></button>
       <button class="menu-button"><i class="material-icons">account_circle</i></button>
       <button class="menu-button"><i class="material-icons">email</i></button>
-      <button class="menu-button"><i class="material-icons">build</i></button>
+      <button class="menu-button"><i class="material-icons">build</i></button> -->
     </div>
   </div>
 
@@ -35,27 +45,103 @@
 
       <div class="feed">
         <div class="post">
-          <input type="text" placeholder="What's on your mind today?">
+          <input id="text" type="text" placeholder="What's on your mind today?">
           <button class="post-button"><i class="material-icons">send</i></button>
         </div>
 
         <div class="post-list">
-          <div class="post-header">
-            <img class="post-img" src="https://avatars.dicebear.com/v2/male/johndoe.svg">
-            <h4>John Doe</h4>
+          <div class="entry">
           </div>
-          <hr>
-          <p class="status-post">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non egestas turpis. Mauris at enim nulla.
-            Phasellus semper lectus in felis pretium venenatis. Morbi malesuada nisl semper neque lobortis, placerat
-            aliquam mauris consequat. Duis non pretium nunc. Pellentesque pharetra euismod urna, ut elementum diam
-            ultricies laoreet. Donec accumsan venenatis erat, nec sodales dolor malesuada et. Nunc finibus turpis vel
-            tellus suscipit dictum.</p>
-          <button class="like-button"><i class="material-icons">thumb_up_alt</i></button>
-          <button class="comment-button"><i class="material-icons">message</i></button>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var feed = document.querySelector('.post-list');
+
+      const app_ = firebase.app();
+      const auth_ = firebase.auth();
+      const firestore_ = firebase.firestore();
+      const storage_ = firebase.storage();
+
+      // fetches button
+      var postBtn = document.querySelector(".post-button");
+
+      // listens to button
+      postBtn.addEventListener("click", function (event) {
+        {
+          // fetches input
+          var textInput = document.querySelector("#text");
+
+          // fetches value from input
+          var textValue = textInput.value;
+
+          if (textValue != '') {
+            // writes value to database
+            firestore_.collection('posts').add({
+              body: textValue
+            })
+          } else {
+            // TO DO: make more visual representation
+            console.log("Failed!");
+          }
+        }
+      });
+
+      firestore_.collection('posts').get()
+        .then(function (posts) {
+          posts.forEach(function (post) {
+            var entry = document.createElement('div');
+            entry.classList += "entry";
+
+            var postHeader = document.createElement('div');
+            postHeader.classList += "post-header";
+
+            var postImg = document.createElement('img');
+            postImg.src = "https://avatars.dicebear.com/v2/male/johndoe.svg";
+            postImg.classList += "post-img";
+
+            var headerText = document.createElement('h4');
+            headerText.innerHTML = "John Doe";
+
+            var hr = document.createElement('hr');
+
+            var text = document.createElement('p');
+            text.innerHTML = post.data().body;
+
+            var materialIcon = document.createElement('i');
+            materialIcon.classList += "material-icons";
+            materialIcon.innerHTML = "thumb_up_alt";
+
+            var likeBtn = document.createElement('button');
+            likeBtn.appendChild(materialIcon);
+            likeBtn.classList += "like-button";
+
+            var commentBtn = document.createElement('button');
+            commentBtn.innerHTML = "<i class='material-icons'>message</i>";
+            commentBtn.classList += "comment-button";
+
+            entry.appendChild(postHeader);
+            postHeader.appendChild(postImg);
+            postHeader.appendChild(headerText);
+            entry.appendChild(hr);
+            entry.appendChild(text);
+            entry.appendChild(likeBtn);
+            entry.appendChild(commentBtn);
+            feed.appendChild(entry);
+          });
+        })
+
+      // listening to changes in the database, and gets all documents when something change
+      firestore_.collection("posts").onSnapshot(function (col_) {
+        col_.forEach(element => {
+          console.log(element.data())
+        });
+      })
+    });
+  </script>
 
 </body>
 

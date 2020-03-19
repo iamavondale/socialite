@@ -1,0 +1,43 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const app_ = firebase.app();
+      const firestore_ = firebase.firestore();
+
+      firestore_.collection("posts").onSnapshot(function (documents_) {
+        app.posts = [];
+        documents_.forEach(element => {
+          var data = element.data();
+          data.id = element.id;
+          app.posts.push(data);
+        });
+        app.posts.sort(function (a, b) {
+          return b.priority - a.priority;
+        })
+      })
+
+      const submitBtn = document.querySelector(".post-button");
+      submitBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        const form = document.querySelector(".post-list");
+        const elements = form.elements; {
+          firestore_.collection("posts").add({
+              post: elements["post"].value
+            })
+            .then(function (resolve) {
+              console.log(resolve)
+            })
+            .catch(function (reject) {
+              console.log(reject)
+            })
+          form.reset();
+        }
+      })
+
+      document.querySelectorAll(".post-list").forEach(function (element) {
+        element.children.forEach(function (child) {
+          child.addEventListener("change", function (event) {
+          })
+        })
+      });
+    });
+  </script>
